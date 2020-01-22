@@ -2,12 +2,11 @@ import logging
 import os
 
 def decorate_foo(people):
-    def decorate_around_people():
+    def decorate_around_people(*args, **kwargs):
         logging.basicConfig(filename='Simplelog.log', filemode='w', level=logging.INFO,
                             format='%(asctime)s - %(funcName)s - %(message)s')
         logging.info(f'Функция стартовала ')
-        print(people(user_input))
-        result = people(user_input)
+        result = people(*args, **kwargs)
         logging.basicConfig(filename='Simplelog.log',filemode='w', level=logging.INFO,
                             format='%(asctime)s - %(message)s')
         logging.info(f'Функция завершила работу')
@@ -18,7 +17,8 @@ def decorate_foo(people):
         logging.basicConfig(filename='Simplelog.log', filemode='w', level=logging.INFO,
                             format=f'%(asctime)s - %(message)s')
         logging.info(f'Функция вернула {result}')
-    return decorate_around_people()
+        return result
+    return decorate_around_people
 
 
 documents = [
